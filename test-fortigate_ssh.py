@@ -34,18 +34,32 @@ for row in f:
 	net_connect = ConnectHandler(**my_device)
 	net_connect.enable()
 
-	#SSH不可の場合
+	#SSH不可の場合 > telnet
+	#telnet不可の場合 > skipして次のホストへ
 	
-	#show system ntp実行
+	#ホスト名表示コマンド実行
+	output0 = net_connect.send_command('get system status | grep Hostname')
+
+	#ntp確認コマンド実行
 	output1 = net_connect.send_command('show system ntp')
 
-	#show system ntp実行
+	#dns確認コマンド実行
 	output2 = net_connect.send_command('show system dns')
 
-	#ログ記録
+	#コマンド実行結果をLog出力
 	with open(logfile, 'w') as f:
-	  print(output1, file=f)
-	  print(output2, file=f)
+		print('------------------------------------------------', file=f)
+		print(output0, file=f)
+		print('------------------------------------------------', file=f)
+		print(output1, file=f)
+		print('------------------------------------------------', file=f)
+		print(output2, file=f)
+		print('------------------------------------------------', file=f)
 	
 	#対象機器から切断
 	net_connect.disconnect()
+
+	print('complete ')
+	print('------------------------------------------------')
+
+
