@@ -37,14 +37,15 @@ for row in f:
 	#SSH不可の場合 > telnet
 	#telnet不可の場合 > skipして次のホストへ
 	
-	#ホスト名表示コマンド実行
-	output0 = net_connect.send_command('get system status | grep Hostname')
+	#実行コマンド定義
+	command0 = "get system status | grep Hostname"
+	command1 = "show system ntp"
+	command2 = "show system dns"
 
-	#ntp確認コマンド実行
-	output1 = net_connect.send_command('show system ntp')
-
-	#dns確認コマンド実行
-	output2 = net_connect.send_command('show system dns')
+	#コマンド実行
+	output0 = net_connect.send_command(command0)
+	output1 = net_connect.send_command(command1)
+	output2 = net_connect.send_command(command2)
 
 	#コマンド実行結果をLog出力
 	with open(logfile, 'w') as f:
