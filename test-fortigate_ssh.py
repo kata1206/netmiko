@@ -43,7 +43,7 @@ for row in f:
 	command2 = "show system dns"
 
 	#コマンド実行
-	output0 = net_connect.send_command(command0)
+	output0 = net_connect.send_command(command0, use_textfsm=True)
 	output1 = net_connect.send_command(command1)
 	output2 = net_connect.send_command(command2)
 
