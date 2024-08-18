@@ -1,0 +1,14 @@
+import textfsm
+import csv
+
+with open('show_inventory.txt') as f:
+    inventory_text = f.read()
+
+with open('cisco_ios_show_inventory.template') as f:
+    table = textfsm.TextFSM(f)
+    result = table.ParseText(inventory_text)
+
+with open('inventory.csv', 'w', newline='') as f: # Windowsの場合、newline=''が必要
+    w = csv.writer(f)
+    w.writerow(table.header)
+    w.writerows(
